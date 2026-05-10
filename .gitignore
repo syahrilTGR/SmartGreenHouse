@@ -1,0 +1,23 @@
+# PlatformIO local directories
+.pio
+.pioenvs
+.piolibdeps
+.clang_complete
+.gcc-flags.json
+
+# VSCode settings
+.vscode/
+!.vscode/extensions.json
+
+# OSX System files
+.DS_Store
+._*
+Thumbs.db
+
+# Cache files
+*.db
+*.d
+*.o
+
+# Private Local Files (Never Upload!)
+PRIVATE_CREDENTIALS.txt
