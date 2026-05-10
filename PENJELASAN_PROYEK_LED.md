@@ -58,6 +58,10 @@ Sistem telah sepenuhnya terintegrasi ke cloud untuk pemantauan dan aktivasi tanp
 ### F. Rata Kiri Serial Monitor (No Staircase Effect)
 * Seluruh log pengiriman teks ke Serial Monitor menggunakan transisi baris lengkap **`\r\n`** (Carriage Return + Line Feed). Hal ini menjamin kursor pembacaan terminal selalu kembali ke posisi paling kiri (bebas dari efek tulisan bergeser menyerupai tangga).
 
+### G. Fitur Pemulihan Otomatis Layar (Anti-Scramble)
+Sistem memiliki perlindungan proaktif terhadap gangguan listrik induktif (Noise/EMI) dari pompa & peralatan lainnya:
+* **Auto-Restore:** Memaksa reset Driver I2C (`lcd.init()`) setiap 2 detik untuk otomatis memperbaiki tulisan yang mendadak menjadi karakter acak tanpa perlu me-restart ESP32 secara manual.
+
 ---
 
 ## 🖥️ 4. STRUKTUR UTAMA KODE PROGRAM
@@ -67,6 +71,6 @@ Sistem telah sepenuhnya terintegrasi ke cloud untuk pemantauan dan aktivasi tanp
 * **`loop()`**:
   * Menjalankan engine `Blynk.run()` tanpa jeda agar komunikasi IoT tetap responsif.
   * Menangani pengawasan *fail-safe* durasi aktif pompa air per milidetik.
-  * Mengeksekusi pembacaan sensor DHT22, sensor kelembapan tanah, pembaruan display LCD, serta kalkulasi keputusan irigasi dan pelaporan data ke dashboard cloud setiap **3 detik sekali** secara non-blocking.
+  * Mengeksekusi pembacaan sensor DHT22, sensor kelembapan tanah, pembaruan display LCD, serta kalkulasi keputusan irigasi dan pelaporan data ke dashboard cloud setiap **2 detik sekali** secara non-blocking.
 
 

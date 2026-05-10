@@ -22,7 +22,7 @@ Menggunakan Lampu **HPL Full Spectrum (400-840nm)** untuk stimulasi pertumbuhan 
 ### 2. ❄️ Sistem Pendinginan Kipas (Fan)
 Menggunakan Kipas otomatis untuk menurunkan suhu saat termometer mendeteksi panas berlebih.
 - **Detail Teknis:** Silakan baca [PENJELASAN_PROYEK_FAN.md](./PENJELASAN_PROYEK_FAN.md)
-- **Logika:** Menyala otomatis jika suhu > 30.0°C, mati jika < 27.0°C.
+- **Logika:** Menyala otomatis jika suhu > 30.0°C, dan langsung mati jika <= 30.0°C.
 - **Pin Relay:** GPIO 18.
 
 ---
@@ -64,8 +64,8 @@ Repositori ini memuat template terpisah untuk skenario simulasi yang berbeda. Ik
 ## 🗺️ Pin Mapping Fisik
 | Komponen | Pin ESP32 | Keterangan |
 | --- | --- | --- |
-| Sensor DHT22 | GPIO 4 | Suhu & Udara |
-| Soil Moisture | GPIO 34 | ADC Kelembapan Tanah |
+| Sensor DHT22 | `GPIO 4` (LED) / `16` (Fan) | Suhu & Udara |
+| Soil Moisture | `GPIO 34` (LED) / `35` (Fan) | ADC Kelembapan Tanah |
 | Relay Pompa | GPIO 5 | Aktuator Air |
 | Relay Aktuator | GPIO 18 | Lampu / Kipas (Tergantung Mode) |
 | LCD SDA/SCL | GPIO 21 / 22 | Komunikasi Layar 16x2 |

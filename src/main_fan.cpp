@@ -1,5 +1,5 @@
 #define BLYNK_TEMPLATE_ID "YOUR_TEMPLATE_ID"
-#define BLYNK_TEMPLATE_NAME "YOUR_DEVICE_NAME"
+#define BLYNK_TEMPLATE_NAME "YOUR_TEMPLATE_NAME"
 #define BLYNK_AUTH_TOKEN "YOUR_AUTH_TOKEN"
 
 #define BLYNK_PRINT Serial // Aktifkan debugging Blynk ke serial monitor
@@ -12,9 +12,9 @@
 #include <LiquidCrystal_I2C.h>
 
 // Definisi Pinout ESP32
-#define DHTPIN 4
+#define DHTPIN 16
 #define DHTTYPE DHT22
-#define SOIL_MOISTURE_PIN 34
+#define SOIL_MOISTURE_PIN 35
 #define RELAY_PUMP_PIN 5
 #define RELAY_FAN_PIN 18     // Menggantikan RELAY_LAMP_PIN untuk aktuator Kipas (Fan)
 #define BUTTON_FAN_PIN 19    // Menggantikan BUTTON_LAMP_PIN untuk tombol manual Kipas
@@ -25,7 +25,7 @@ LiquidCrystal_I2C lcd(0x27, 16, 2); // Alamat I2C default umumnya 0x27
 
 // Pengaturan Interval Non-blocking
 unsigned long previousMillis = 0;
-const long interval = 3000; // Siklus baca setiap 3 detik
+const long interval = 2000; // Siklus baca setiap 2 detik
 
 // State tracker untuk melacak kondisi terakhir aktuator (State Change Detection)
 bool lastPumpState = false; // false = mati, true = menyala
@@ -174,8 +174,9 @@ void loop() {
       Serial.printf("Suhu: %.1fC | Lembap Udara: %.1f%% | Lembap Tanah: %d%% | Kipas: %s\r\n", 
                     temperature, humidity, moisturePercent, lastFanState ? "ON" : "OFF");
       
-      // Update Layar LCD 16x2
-      lcd.clear();
+      // Update Layar LCD 16x2 (Solusi 4: Reset Init berkala untuk sembuhkan Karakter Acak akibat Noise)
+      lcd.init(); 
+      lcd.backlight();
       lcd.setCursor(0, 0);
       lcd.print("T:");
       lcd.print(temperature, 1);
@@ -270,11 +271,11 @@ void loop() {
           Blynk.virtualWrite(V4, 1);
         }
       } 
-      else if (temperature < 27.0) {
+      else {
         if (lastFanState) {
           lastFanState = false;
           digitalWrite(RELAY_FAN_PIN, LOW);
-          Serial.println("=> Aksi Otomatis: Kipas Dimatikan (Suhu Dingin < 27C)\r\n");
+          Serial.println("=> Aksi Otomatis: Kipas Dimatikan (Suhu sudah menyentuh <= 30C)\r\n");
           
           // Kirim status baru ke Blynk
           Blynk.virtualWrite(V4, 0);

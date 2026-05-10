@@ -24,7 +24,7 @@ LiquidCrystal_I2C lcd(0x27, 16, 2); // Alamat I2C default umumnya 0x27
 
 // Pengaturan Interval Non-blocking
 unsigned long previousMillis = 0;
-const long interval = 3000; // Siklus baca setiap 3 detik
+const long interval = 2000; // Siklus baca setiap 2 detik
 
 // State tracker untuk melacak kondisi terakhir aktuator (State Change Detection)
 bool lastPumpState = false; // false = mati, true = menyala
@@ -155,8 +155,9 @@ void loop() {
       Serial.printf("Suhu: %.1fC | Lembap Udara: %.1f%% | Lembap Tanah: %d%%\r\n", 
                     temperature, humidity, moisturePercent);
       
-      // Update Layar LCD 16x2
-      lcd.clear();
+      // Update Layar LCD 16x2 (Solusi 4: Anti Karakter Acak)
+      lcd.init();
+      lcd.backlight();
       lcd.setCursor(0,0);
       lcd.print("T:");
       lcd.print(temperature, 1);

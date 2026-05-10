@@ -15,8 +15,8 @@ Berikut adalah konfigurasi pemetaan pin fisik (*hardware pin mapping*) yang digu
 
 | Komponen | Pin ESP32 | Jenis Pin | Deskripsi Fungsional |
 | :--- | :--- | :--- | :--- |
-| **Sensor DHT22** | `GPIO 4` | Digital Input | Membaca Suhu (°C) & Kelembapan Udara (%) |
-| **Soil Moisture Sensor** | `GPIO 34` | Analog Input (ADC1) | Membaca kelembapan tanah (Kalibrasi ADC 12-bit) |
+| **Sensor DHT22** | `GPIO 16` | Digital Input | Membaca Suhu (°C) & Kelembapan Udara (%) |
+| **Soil Moisture Sensor** | `GPIO 35` | Analog Input (ADC1) | Membaca kelembapan tanah (Kalibrasi ADC 12-bit) |
 | **Relay Pompa Air** | `GPIO 5` | Digital Output | Mengontrol on/off aliran daya pompa air |
 | **Relay Kipas (Fan)** | `GPIO 18` | Digital Output | Mengontrol on/off modul kipas pendingin |
 | **Tombol Manual Kipas** | `GPIO 19` | Digital Input (`PULLUP`) | Memicu on/off kipas secara langsung (Bypass) |
@@ -28,10 +28,9 @@ Berikut adalah konfigurasi pemetaan pin fisik (*hardware pin mapping*) yang digu
 ## 🛠️ 3. FITUR UNGGULAN & LOGIKA PERANGKAT LUNAK
 
 ### A. Logika Pendinginan Otomatis Hysteresis (Smart Cooling)
-Kipas beroperasi secara cerdas menggunakan rentang suhu ambang (*Hysteresis Band*) untuk melindungi kontaktor relay dari *chattering* (siklus on-off berulang yang terlalu rapat):
-* **Suhu Aktif (`> 30.0°C`):** Kipas otomatis MENYALA untuk mendinginkan greenhouse.
-* **Suhu Mati (`< 27.0°C`):** Kipas otomatis MATI saat suhu sudah cukup sejuk.
-* **Zona Transisi (`27.0°C s.d. 30.0°C`):** Kipas mempertahankan kondisi sebelumnya untuk stabilitas termal.
+Kipas beroperasi secara adaptif menggunakan ambang batas suhu tunggal:
+* **Suhu Aktif (`> 30.0°C`):** Kipas otomatis MENYALA untuk segera mendinginkan greenhouse.
+* **Suhu Mati (`<= 30.0°C`):** Kipas otomatis MATI seketika suhu sudah menyentuh batas target (30°C).
 
 ### B. Integrasi Dashboard IoT (Blynk Cloud)
 Sistem mengirimkan data telemetri setiap interval non-blocking ke platform Blynk IoT menggunakan virtual pin berikut:
@@ -50,6 +49,10 @@ Mewarisi fitur keamanan mutakhir:
 * **Max Run Time:** Pompa mati paksa setelah menyala **15 detik** berturut-turut tanpa henti.
 * **Cooldown Period:** Masa istirahat **30 detik** (menampilkan `P:WT` di LCD) agar air memiliki waktu meresap sempurna menembus lapisan tanah sebelum sensor melakukan pembacaan ulang.
 
+### E. Fitur Pemulihan Otomatis Layar (Anti-Scramble)
+Sistem memiliki perlindungan proaktif terhadap gangguan listrik induktif (Noise/EMI) dari pompa & kipas:
+* **Auto-Restore:** Memaksa reset Driver I2C (`lcd.init()`) setiap 2 detik untuk otomatis memperbaiki tulisan yang mendadak menjadi karakter acak tanpa perlu me-restart ESP32 secara manual.
+
 ---
 
 ## 🖥️ 4. STRUKTUR UTAMA KODE PROGRAM
@@ -60,5 +63,5 @@ Mewarisi fitur keamanan mutakhir:
 * **`loop()`**:
   * Menjalankan `Blynk.run()` sesering mungkin guna pemantauan _Real-Time_.
   * Mendeteksi tekanan tombol manual secara instan dengan debounce per 250 milidetik.
-  * Melakukan pengecekan kondisi sensor (Suhu, Udara, Tanah) setiap **3 detik sekali** secara non-blocking menggunakan fungsi penanda waktu `millis()`.
+  * Melakukan pengecekan kondisi sensor (Suhu, Udara, Tanah) setiap **2 detik sekali** secara non-blocking menggunakan fungsi penanda waktu `millis()`.
   * Mengambil keputusan otomatis: Irigasi air (berdasarkan tanah) dan Pendinginan fan (berdasarkan suhu).
