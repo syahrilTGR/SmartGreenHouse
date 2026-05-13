@@ -198,7 +198,7 @@ void loop() {
       // ----------------------------------------------------
       // Logika Hysteresis dengan Fitur Fail-safe & Cooldown untuk Pompa Air
       // ----------------------------------------------------
-      if (moisturePercent < 40) {
+      if (moisturePercent < 60) {
         if (pumpSafetyCutoff) {
           // Pengaman aktif, kunci pompa selama masa cooldown
           Serial.printf("=> Info: Pompa istirahat (cooldown) sisa %ds agar air meresap ke sensor.\r\n", cooldownRemaining);
@@ -214,7 +214,7 @@ void loop() {
           }
         }
       } 
-      else if (moisturePercent > 70) {
+      else if (moisturePercent > 80) {
         if (lastPumpState) {
           lastPumpState = false;
           digitalWrite(RELAY_PUMP_PIN, LOW);

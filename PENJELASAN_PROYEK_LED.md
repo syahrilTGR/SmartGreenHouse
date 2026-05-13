@@ -62,6 +62,10 @@ Sistem telah sepenuhnya terintegrasi ke cloud untuk pemantauan dan aktivasi tanp
 Sistem memiliki perlindungan proaktif terhadap gangguan listrik induktif (Noise/EMI) dari pompa & peralatan lainnya:
 * **Auto-Restore:** Memaksa reset Driver I2C (`lcd.init()`) setiap 2 detik untuk otomatis memperbaiki tulisan yang mendadak menjadi karakter acak tanpa perlu me-restart ESP32 secara manual.
 
+### H. Fitur Pengaman Booting (Blocking Isolation)
+Mencegah pompa & lampu menyala liar saat ESP32 sibuk mencari sinyal WiFi:
+* **Active-Low Safe Guard:** Inisialisasi awal langsung memaksa status pin bernilai **`HIGH` (MATI)** tepat di awal fungsi `setup()`. Hal ini menjamin aktuator tetap aman dalam kondisi mati meskipun program sedang tertahan (*blocking*) di proses pencarian koneksi `WiFiManager`.
+
 ---
 
 ## 🖥️ 4. STRUKTUR UTAMA KODE PROGRAM

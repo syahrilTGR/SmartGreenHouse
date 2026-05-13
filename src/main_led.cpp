@@ -68,18 +68,19 @@ BLYNK_CONNECTED() {
 BLYNK_WRITE(V4) {
   int pinValue = param.asInt(); // Ambil nilai (0 atau 1) dari aplikasi
   lastLampState = (pinValue == 1); // Perbarui status
-  digitalWrite(RELAY_LAMP_PIN, lastLampState ? HIGH : LOW); // Aktifkan Relay
+  digitalWrite(RELAY_LAMP_PIN, lastLampState ? LOW : HIGH); // Aktifkan Relay
   Serial.printf("=> Aksi Blynk: Lampu HPL %s\r\n", lastLampState ? "Dinyalakan" : "Dimatikan");
 }
 
 void setup() {
   Serial.begin(115200);
   
-  // Inisialisasi Relay (Asumsi relay modul berlogika Active High)
+  // Inisialisasi Relay (Modul Fisik Berlogika Active Low: LOW=Menyala, HIGH=Mati)
   pinMode(RELAY_PUMP_PIN, OUTPUT);
   pinMode(RELAY_LAMP_PIN, OUTPUT);
-  digitalWrite(RELAY_PUMP_PIN, LOW); 
-  digitalWrite(RELAY_LAMP_PIN, LOW);
+  // Wajib set HIGH di awal agar Pompa & Lampu TETAP MATI selama proses blocking autoConnect WiFiManager
+  digitalWrite(RELAY_PUMP_PIN, HIGH); 
+  digitalWrite(RELAY_LAMP_PIN, HIGH);
 
   // Inisialisasi LCD
   lcd.init();
@@ -187,23 +188,23 @@ void loop() {
       }
 
       // LOGIKA HYSTERESIS POMPA
-      if (moisturePercent < 40) {
+      if (moisturePercent < 60) {
         if (pumpSafetyCutoff) {
           Serial.printf("=> Cooldown sisa %ds...\r\n", cooldownRemaining);
         } else {
           if (!lastPumpState) {
             lastPumpState = true;
             pumpStartTime = currentMillis;
-            digitalWrite(RELAY_PUMP_PIN, HIGH);
+            digitalWrite(RELAY_PUMP_PIN, LOW);
             Serial.println("=> Aksi: Pompa Dinyalakan\r\n");
             Blynk.virtualWrite(V3, 1);
           }
         }
       } 
-      else if (moisturePercent > 70) {
+      else if (moisturePercent > 80) {
         if (lastPumpState) {
           lastPumpState = false;
-          digitalWrite(RELAY_PUMP_PIN, LOW);
+          digitalWrite(RELAY_PUMP_PIN, HIGH);
           Serial.println("=> Aksi: Pompa Dimatikan\r\n");
           Blynk.virtualWrite(V3, 0);
         }

@@ -44,19 +44,19 @@
     },
     {
       "type": "wokwi-relay-module",
-      "id": "relay_fan",
+      "id": "relay_lamp",
       "top": 67.4,
       "left": 163.2,
       "attrs": {}
     },
     {
       "type": "wokwi-pushbutton",
-      "id": "btn_fan",
+      "id": "btn_lamp",
       "top": 150,
       "left": -10,
       "attrs": {
-        "label": "Kipas Toggle",
-        "color": "blue"
+        "label": "Lampu Toggle",
+        "color": "green"
       }
     },
     {
@@ -71,12 +71,12 @@
     },
     {
       "type": "wokwi-led",
-      "id": "led_fan",
+      "id": "led_lamp",
       "top": 280,
       "left": 150,
       "attrs": {
-        "color": "blue",
-        "label": "Kipas Aktif"
+        "color": "red",
+        "label": "LED Strip Aktif"
       }
     }
   ],
@@ -113,7 +113,7 @@
       ]
     ],
     [
-      "esp:16",
+      "esp:4",
       "dht:SDA",
       "blue",
       [
@@ -142,7 +142,7 @@
       ]
     ],
     [
-      "esp:35",
+      "esp:34",
       "pot_soil:SIG",
       "green",
       [
@@ -221,7 +221,7 @@
     ],
     [
       "esp:GND.2",
-      "relay_fan:GND",
+      "relay_lamp:GND",
       "black",
       [
         "h20",
@@ -230,7 +230,7 @@
     ],
     [
       "esp:5V",
-      "relay_fan:VCC",
+      "relay_lamp:VCC",
       "red",
       [
         "h30",
@@ -239,7 +239,7 @@
     ],
     [
       "esp:18",
-      "relay_fan:IN",
+      "relay_lamp:IN",
       "orange",
       [
         "h40",
@@ -248,7 +248,7 @@
     ],
     [
       "esp:GND.2",
-      "btn_fan:1.a",
+      "btn_lamp:1.a",
       "black",
       [
         "h20",
@@ -257,8 +257,8 @@
     ],
     [
       "esp:19",
-      "btn_fan:2.a",
-      "blue",
+      "btn_lamp:2.a",
+      "green",
       [
         "h40",
         "v60"
@@ -298,7 +298,7 @@
     ],
     [
       "esp:5V",
-      "relay_fan:COM",
+      "relay_lamp:COM",
       "red",
       [
         "v57.6",
@@ -307,9 +307,9 @@
       ]
     ],
     [
-      "relay_fan:NO",
-      "led_fan:A",
-      "blue",
+      "relay_lamp:NO",
+      "led_lamp:A",
+      "red",
       [
         "v30",
         "h-30"
@@ -317,7 +317,7 @@
     ],
     [
       "esp:GND.2",
-      "led_fan:C",
+      "led_lamp:C",
       "black",
       [
         "h110",
