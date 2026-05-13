@@ -16,13 +16,6 @@
     { "type": "wokwi-relay-module", "id": "relay_pump", "top": 105.8, "left": 163.2, "attrs": {} },
     { "type": "wokwi-relay-module", "id": "relay_fan", "top": 29, "left": 163.2, "attrs": {} },
     {
-      "type": "wokwi-pushbutton",
-      "id": "btn_fan",
-      "top": 150,
-      "left": -10,
-      "attrs": { "label": "Kipas Toggle", "color": "blue" }
-    },
-    {
       "type": "wokwi-led",
       "id": "led_pump",
       "top": 226.8,
@@ -56,8 +49,6 @@
     [ "esp:GND.2", "relay_fan:GND", "black", [ "h20", "v80" ] ],
     [ "esp:5V", "relay_fan:VCC", "red", [ "h30", "v100" ] ],
     [ "esp:18", "relay_fan:IN", "orange", [ "h40", "v120" ] ],
-    [ "esp:GND.2", "btn_fan:1.a", "black", [ "h20", "v40" ] ],
-    [ "esp:19", "btn_fan:2.a", "blue", [ "h40", "v60" ] ],
     [ "esp:5V", "relay_pump:COM", "red", [ "h24.19", "v38.4", "h230.4", "v-56.2" ] ],
     [ "relay_pump:NO", "led_pump:A", "green", [ "h1.2", "v30", "h-163.2", "v93" ] ],
     [ "esp:GND.1", "led_pump:C", "black", [ "h-129.41", "v134.4", "h76.4" ] ],

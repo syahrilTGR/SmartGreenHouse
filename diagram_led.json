@@ -50,16 +50,6 @@
       "attrs": {}
     },
     {
-      "type": "wokwi-pushbutton",
-      "id": "btn_lamp",
-      "top": 150,
-      "left": -10,
-      "attrs": {
-        "label": "Lampu Toggle",
-        "color": "green"
-      }
-    },
-    {
       "type": "wokwi-led",
       "id": "led_pump",
       "top": 280,
@@ -244,24 +234,6 @@
       [
         "h40",
         "v120"
-      ]
-    ],
-    [
-      "esp:GND.2",
-      "btn_lamp:1.a",
-      "black",
-      [
-        "h20",
-        "v40"
-      ]
-    ],
-    [
-      "esp:19",
-      "btn_lamp:2.a",
-      "green",
-      [
-        "h40",
-        "v60"
       ]
     ],
     [

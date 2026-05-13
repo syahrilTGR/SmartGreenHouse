@@ -19,7 +19,6 @@ Berikut adalah konfigurasi pemetaan pin fisik (*hardware pin mapping*) yang digu
 | **Soil Moisture Sensor** | `GPIO 35` | Analog Input (ADC1) | Membaca kelembapan tanah (Kalibrasi ADC 12-bit) |
 | **Relay Pompa Air** | `GPIO 5` | Digital Output | Mengontrol on/off aliran daya pompa air |
 | **Relay Kipas (Fan)** | `GPIO 18` | Digital Output | Mengontrol on/off modul kipas pendingin |
-| **Tombol Manual Kipas** | `GPIO 19` | Digital Input (`PULLUP`) | Memicu on/off kipas secara langsung (Bypass) |
 | **LCD 16x2 SDA** | `GPIO 21` | I2C Data | Jalur komunikasi data layar lokal |
 | **LCD 16x2 SCL** | `GPIO 22` | I2C Clock | Jalur sinkronisasi detak layar lokal |
 
@@ -62,6 +61,5 @@ Sistem memiliki perlindungan proaktif terhadap gangguan listrik induktif (Noise/
 * **`setup()`**: Mengonfigurasi pin hardware, menginisialisasi layar LCD, menyalakan DHT22, dan menangani protokol jabat tangan (*handshake*) WiFi & Blynk.
 * **`loop()`**:
   * Menjalankan `Blynk.run()` sesering mungkin guna pemantauan _Real-Time_.
-  * Mendeteksi tekanan tombol manual secara instan dengan debounce per 250 milidetik.
   * Melakukan pengecekan kondisi sensor (Suhu, Udara, Tanah) setiap **2 detik sekali** secara non-blocking menggunakan fungsi penanda waktu `millis()`.
   * Mengambil keputusan otomatis: Irigasi air (berdasarkan tanah) dan Pendinginan fan (berdasarkan suhu).
