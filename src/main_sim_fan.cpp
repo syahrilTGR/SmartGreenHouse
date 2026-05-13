@@ -1,5 +1,5 @@
 #define BLYNK_TEMPLATE_ID "YOUR_TEMPLATE_ID"
-#define BLYNK_TEMPLATE_NAME "YOUR_DEVICE_NAME"
+#define BLYNK_TEMPLATE_NAME "YOUR_TEMPLATE_NAME"
 #define BLYNK_AUTH_TOKEN "YOUR_AUTH_TOKEN"
 
 #define BLYNK_PRINT Serial // Aktifkan debugging Blynk ke serial monitor

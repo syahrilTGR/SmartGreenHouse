@@ -3,328 +3,67 @@
   "author": "user",
   "editor": "wokwi",
   "parts": [
-    {
-      "type": "board-esp32-devkit-c-v4",
-      "id": "esp",
-      "top": 0,
-      "left": 0,
-      "attrs": {}
-    },
-    {
-      "type": "wokwi-dht22",
-      "id": "dht",
-      "top": -150,
-      "left": -120,
-      "attrs": {}
-    },
+    { "type": "board-esp32-devkit-c-v4", "id": "esp", "top": 0, "left": 0, "attrs": {} },
+    { "type": "wokwi-dht22", "id": "dht", "top": -143.7, "left": 205.8, "attrs": {} },
     {
       "type": "wokwi-potentiometer",
       "id": "pot_soil",
-      "top": -150,
-      "left": 100,
-      "attrs": {
-        "label": "Soil Moisture"
-      }
+      "top": -154.9,
+      "left": 47.8,
+      "attrs": { "label": "Soil Moisture" }
     },
-    {
-      "type": "wokwi-lcd1602",
-      "id": "lcd",
-      "top": -300,
-      "left": -50,
-      "attrs": {
-        "pins": "i2c"
-      }
-    },
-    {
-      "type": "wokwi-relay-module",
-      "id": "relay_pump",
-      "top": 153.8,
-      "left": 163.2,
-      "attrs": {}
-    },
-    {
-      "type": "wokwi-relay-module",
-      "id": "relay_lamp",
-      "top": 67.4,
-      "left": 163.2,
-      "attrs": {}
-    },
+    { "type": "wokwi-lcd1602", "id": "lcd", "top": -300, "left": -50, "attrs": { "pins": "i2c" } },
+    { "type": "wokwi-relay-module", "id": "relay_pump", "top": 105.8, "left": 163.2, "attrs": {} },
+    { "type": "wokwi-relay-module", "id": "relay_fan", "top": 29, "left": 163.2, "attrs": {} },
     {
       "type": "wokwi-pushbutton",
-      "id": "btn_lamp",
+      "id": "btn_fan",
       "top": 150,
       "left": -10,
-      "attrs": {
-        "label": "Lampu Toggle",
-        "color": "green"
-      }
+      "attrs": { "label": "Kipas Toggle", "color": "blue" }
     },
     {
       "type": "wokwi-led",
       "id": "led_pump",
-      "top": 280,
-      "left": -120,
-      "attrs": {
-        "color": "green",
-        "label": "Pompa Aktif"
-      }
+      "top": 226.8,
+      "left": -63.4,
+      "attrs": { "color": "green", "label": "Pompa Aktif" }
     },
     {
       "type": "wokwi-led",
-      "id": "led_lamp",
-      "top": 280,
-      "left": 150,
-      "attrs": {
-        "color": "red",
-        "label": "LED Strip Aktif"
-      }
+      "id": "led_fan",
+      "top": 226.8,
+      "left": 128.6,
+      "attrs": { "color": "blue", "label": "Kipas Aktif" }
     }
   ],
   "connections": [
-    [
-      "esp:TX",
-      "$serialMonitor:RX",
-      "",
-      []
-    ],
-    [
-      "esp:RX",
-      "$serialMonitor:TX",
-      "",
-      []
-    ],
-    [
-      "esp:GND.1",
-      "dht:GND",
-      "black",
-      [
-        "h-20",
-        "v-80"
-      ]
-    ],
-    [
-      "esp:3V3",
-      "dht:VCC",
-      "red",
-      [
-        "h-30",
-        "v-28.8",
-        "h-79.61"
-      ]
-    ],
-    [
-      "esp:4",
-      "dht:SDA",
-      "blue",
-      [
-        "h-14.36",
-        "v-153.6",
-        "h-181.9"
-      ]
-    ],
-    [
-      "esp:GND.2",
-      "pot_soil:GND",
-      "black",
-      [
-        "h20",
-        "v-80"
-      ]
-    ],
-    [
-      "esp:3V3",
-      "pot_soil:VCC",
-      "red",
-      [
-        "h30",
-        "v-28.8",
-        "h114.39"
-      ]
-    ],
-    [
-      "esp:34",
-      "pot_soil:SIG",
-      "green",
-      [
-        "h40",
-        "v-134.4",
-        "h94.39"
-      ]
-    ],
-    [
-      "esp:GND.1",
-      "lcd:GND",
-      "black",
-      [
-        "h-148.61",
-        "v-421.6"
-      ]
-    ],
-    [
-      "esp:5V",
-      "lcd:VCC",
-      "red",
-      [
-        "h-60",
-        "v-220"
-      ]
-    ],
-    [
-      "esp:21",
-      "lcd:SDA",
-      "yellow",
-      [
-        "h-70",
-        "v-220.8",
-        "h-97.96",
-        "v-105"
-      ]
-    ],
-    [
-      "esp:22",
-      "lcd:SCL",
-      "orange",
-      [
-        "h-80",
-        "v-201.6",
-        "h-66.76"
-      ]
-    ],
-    [
-      "esp:GND.1",
-      "relay_pump:GND",
-      "black",
-      [
-        "h-20",
-        "v80"
-      ]
-    ],
-    [
-      "esp:5V",
-      "relay_pump:VCC",
-      "red",
-      [
-        "h4.99",
-        "v19.2",
-        "h124.8",
-        "v-38.4"
-      ]
-    ],
-    [
-      "esp:5",
-      "relay_pump:IN",
-      "blue",
-      [
-        "h43.24",
-        "v86.6"
-      ]
-    ],
-    [
-      "esp:GND.2",
-      "relay_lamp:GND",
-      "black",
-      [
-        "h20",
-        "v80"
-      ]
-    ],
-    [
-      "esp:5V",
-      "relay_lamp:VCC",
-      "red",
-      [
-        "h30",
-        "v100"
-      ]
-    ],
-    [
-      "esp:18",
-      "relay_lamp:IN",
-      "orange",
-      [
-        "h40",
-        "v120"
-      ]
-    ],
-    [
-      "esp:GND.2",
-      "btn_lamp:1.a",
-      "black",
-      [
-        "h20",
-        "v40"
-      ]
-    ],
-    [
-      "esp:19",
-      "btn_lamp:2.a",
-      "green",
-      [
-        "h40",
-        "v60"
-      ]
-    ],
-    [
-      "esp:5V",
-      "relay_pump:COM",
-      "red",
-      [
-        "h24.19",
-        "v38.4",
-        "h230.4",
-        "v-56.2"
-      ]
-    ],
-    [
-      "relay_pump:NO",
-      "led_pump:A",
-      "green",
-      [
-        "h1.2",
-        "v30",
-        "h-355.2",
-        "v98.2"
-      ]
-    ],
-    [
-      "esp:GND.1",
-      "led_pump:C",
-      "black",
-      [
-        "h-129.41",
-        "v192",
-        "h19.8"
-      ]
-    ],
-    [
-      "esp:5V",
-      "relay_lamp:COM",
-      "red",
-      [
-        "v57.6",
-        "h292.99",
-        "v-161.8"
-      ]
-    ],
-    [
-      "relay_lamp:NO",
-      "led_lamp:A",
-      "red",
-      [
-        "v30",
-        "h-30"
-      ]
-    ],
-    [
-      "esp:GND.2",
-      "led_lamp:C",
-      "black",
-      [
-        "h110",
-        "v336",
-        "h-45.76"
-      ]
-    ]
+    [ "esp:TX", "$serialMonitor:RX", "", [] ],
+    [ "esp:RX", "$serialMonitor:TX", "", [] ],
+    [ "esp:GND.1", "dht:GND", "black", [ "h-20", "v-163.2", "h264.99" ] ],
+    [ "esp:3V3", "dht:VCC", "red", [ "h-4.61", "v-28.8", "h220.8" ] ],
+    [ "esp:16", "dht:SDA", "blue", [ "h-14.36", "v-153.6", "h-181.9" ] ],
+    [ "esp:GND.2", "pot_soil:GND", "black", [ "h20", "v-80" ] ],
+    [ "esp:3V3", "pot_soil:VCC", "red", [ "h30", "v-19.2", "h62.19" ] ],
+    [ "esp:35", "pot_soil:SIG", "green", [ "h40", "v-134.4", "h94.39" ] ],
+    [ "esp:GND.1", "lcd:GND", "black", [ "h-148.61", "v-421.6" ] ],
+    [ "esp:5V", "lcd:VCC", "red", [ "h-119.81", "v-460.1" ] ],
+    [ "esp:21", "lcd:SDA", "yellow", [ "h-43.16", "v-19.2", "h-144", "v-306.6" ] ],
+    [ "esp:22", "lcd:SCL", "orange", [ "h-71.96", "v-201.6", "h-96", "v-85.9" ] ],
+    [ "esp:GND.1", "relay_pump:GND", "black", [ "h-20", "v80" ] ],
+    [ "esp:5V", "relay_pump:VCC", "red", [ "h4.99", "v19.2", "h124.8", "v-38.4" ] ],
+    [ "esp:5", "relay_pump:IN", "blue", [ "h43.24", "v86.6" ] ],
+    [ "esp:GND.2", "relay_fan:GND", "black", [ "h20", "v80" ] ],
+    [ "esp:5V", "relay_fan:VCC", "red", [ "h30", "v100" ] ],
+    [ "esp:18", "relay_fan:IN", "orange", [ "h40", "v120" ] ],
+    [ "esp:GND.2", "btn_fan:1.a", "black", [ "h20", "v40" ] ],
+    [ "esp:19", "btn_fan:2.a", "blue", [ "h40", "v60" ] ],
+    [ "esp:5V", "relay_pump:COM", "red", [ "h24.19", "v38.4", "h230.4", "v-56.2" ] ],
+    [ "relay_pump:NO", "led_pump:A", "green", [ "h1.2", "v30", "h-163.2", "v93" ] ],
+    [ "esp:GND.1", "led_pump:C", "black", [ "h-129.41", "v134.4", "h76.4" ] ],
+    [ "esp:5V", "relay_fan:COM", "red", [ "v57.6", "h292.99", "v-161.8" ] ],
+    [ "relay_fan:NO", "led_fan:A", "blue", [ "v30", "h-104.4", "v169.8" ] ],
+    [ "esp:GND.2", "led_fan:C", "black", [ "h110", "v259.2", "h-67.16" ] ]
   ],
   "dependencies": {}
 }
