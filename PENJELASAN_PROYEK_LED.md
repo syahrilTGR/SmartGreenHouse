@@ -34,9 +34,9 @@ Berkas `main_led.cpp` menerapkan standar pemrograman mikrokontroler kelas indust
 
 ### B. Logika Hysteresis Pompa Air (Penyiraman Aman)
 Untuk mencegah *relay bouncing* (relay hidup-mati dengan sangat cepat saat nilai sensor berada tepat di batas batas threshold yang merusak kontaktor relay), sistem menerapkan rentang **Hysteresis**:
-* **Batas Kering (`< 40%`):** Pompa air akan dinyalakan secara otomatis.
-* **Batas Basah (`> 70%`):** Pompa air akan dimatikan secara otomatis.
-* **Batas Toleransi (`40% s.d. 70%`):** Pompa mempertahankan status terakhirnya (*state retention*).
+* **Batas Kering (`< 60%`):** Pompa air akan dinyalakan secara otomatis.
+* **Batas Basah (`> 80%`):** Pompa air akan dimatikan secara otomatis.
+* **Batas Toleransi (`60% s.d. 80%`):** Pompa mempertahankan status terakhirnya (*state retention*).
 
 ### C. Sistem Fail-Safe & Max Run Timeout (Anti-Banjir & Pompa Terbakar)
 Jika sensor tanah mengalami kegagalan pembacaan (*sensor delay*) atau tidak mendeteksi air yang telah diguyur:
